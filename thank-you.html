@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Thank You - MicroFund</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #f1f8f6;
+      margin: 0;
+      padding: 0;
+    }
+
+    .thank-you-container {
+      background: white;
+      padding: 3em;
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 600px;
+      width: 90%;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .thank-you-container h1 {
+      font-size: 2.5em;
+      margin-bottom: 0.5em;
+      color: #004d40;
+    }
+
+    .thank-you-container p {
+      font-size: 1.2em;
+      color: #555;
+      margin-bottom: 2em;
+    }
+
+    .icon-success {
+      font-size: 4em;
+      color: #4caf50;
+      margin-bottom: 0.3em;
+    }
+
+    .btn-home {
+      background-color: #004d40;
+      color: white;
+      padding: 0.8em 2em;
+      border: none;
+      border-radius: 10px;
+      font-size: 1em;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-home:hover {
+      background-color: #00695c;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Dark theme support */
+    .dark-theme {
+      background-color: #121212;
+    }
+
+    .dark-theme .thank-you-container {
+      background-color: #1e1e1e;
+      color: #f5f5f5;
+    }
+
+    .dark-theme .thank-you-container h1 {
+      color: #00e676;
+    }
+
+    .dark-theme .thank-you-container p {
+      color: #ccc;
+    }
+
+    .dark-theme .btn-home {
+      background-color: #333;
+      color: #eee;
+    }
+
+    .dark-theme .btn-home:hover {
+      background-color: #444;
+    }
+  </style>
+</head>
+<body>
+  <div class="thank-you-container">
+    <div class="icon-success">✅</div>
+    <h1>Application Submitted!</h1>
+    <p>Thank you for applying with MicroFund.<br>We’ll review your application and contact you soon.</p>
+    <a class="btn-home" href="index.html">🏠 Back to Home</a>
+  </div>
+
+  <script>
+    // Optional dark theme activation (if toggled previously)
+    if (localStorage.getItem("theme") === "dark") {
+      document.body.classList.add("dark-theme");
+    }
+  </script>
+</body>
+</html>
