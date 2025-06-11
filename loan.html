@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Apply for Loan - MicroFund</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <script>
+    // Check if the user is logged in
+    if (!localStorage.getItem("isLoggedIn")) {
+      window.location.href = "login.html";  // Redirect to login if not logged in
+    }
+
+    function checkEligibility() {
+      const age = parseInt(document.getElementById("age").value);
+      const businessYears = parseInt(document.getElementById("business-years").value);
+      const creditScore = parseInt(document.getElementById("credit-score").value);
+      
+      let isEligible = true;
+      let eligibilityMessage = "";
+
+      // Check eligibility conditions
+      if (age < 18 || age > 65) {
+        isEligible = false;
+        eligibilityMessage += "Age should be between 18 and 65.\n";
+      }
+      if (businessYears < 2) {
+        isEligible = false;
+        eligibilityMessage += "Business should be operating for at least 2 years.\n";
+      }
+      if (creditScore < 600) {
+        isEligible = false;
+        eligibilityMessage += "Credit score should be at least 600.\n";
+      }
+
+      // Show eligibility message only if all conditions are met
+      if (isEligible) {
+        eligibilityMessage = "You are eligible to apply for a loan!";
+        document.getElementById("apply-button").disabled = false; // Enable apply button
+        document.getElementById("bank-selection").disabled = false; // Enable bank selection
+      } else {
+        document.getElementById("apply-button").disabled = true; // Disable apply button
+        document.getElementById("bank-selection").disabled = true; // Disable bank selection
+      }
+
+      document.getElementById("eligibility-message").innerText = eligibilityMessage;
+    }
+
+    function proceedToPersonalDetails() {
+      if (document.getElementById("apply-button").disabled === false) {
+        window.location.href = "personal-details.html";  // Redirect to the personal details page if eligible
+      }
+    }
+  </script>
+
+  <header>
+    <h1>Apply for Loan</h1>
+    <p>Fill out the details below to apply for a loan.</p>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="success.html">Success Stories</a>
+    <a href="loan.html">Apply for Loan</a>
+    <a href="contact.html">Contact</a>
+    <button id="theme-toggle">🌓 Theme</button>
+  </nav>
+
+  <section>
+    <h2>Eligibility Criteria</h2>
+    <p>Before applying, make sure you meet the following eligibility criteria:</p>
+    <ul>
+      <li>Age between 18 and 65 years.</li>
+      <li>Business should be operating for at least 2 years.</li>
+      <li>Credit score should be at least 600.</li>
+    </ul>
+
+    <h3>Check Your Eligibility:</h3>
+    <form id="eligibility-form">
+      <label for="age">Age:</label>
+      <input type="number" id="age" name="age" required placeholder="Enter your age" onchange="checkEligibility()" />
+
+      <label for="business-years">Years in Business:</label>
+      <input type="number" id="business-years" name="business-years" required placeholder="Enter years in business" onchange="checkEligibility()" />
+
+      <label for="credit-score">Credit Score:</label>
+      <input type="number" id="credit-score" name="credit-score" required placeholder="Enter your credit score" onchange="checkEligibility()" />
+
+      <p id="eligibility-message" style="color: green;"></p> <!-- Eligibility message here -->
+
+      <button id="apply-button" type="button" disabled onclick="proceedToPersonalDetails()">Apply for Loan</button> <!-- Disabled button until eligible -->
+
+      <!-- Bank Selection -->
+      <label for="bank-selection">Choose a Bank:</label>
+      <select id="bank-selection" name="bank" disabled>
+        <option value="">Select a Local Bank</option>
+        <option value="Ganga">Ganga Bank</option>
+        <option value="RiverValley">River Valley Bank</option>
+        <option value="Greenfield">Greenfield Cooperative Bank</option>
+        <option value="CityMetro">City Metro Bank</option>
+        <option value="Sunrise">Sunrise Local Bank</option>
+      </select>
+    </form>
+  </section>
+
+  <footer>
+    &copy; 2025 MicroFund | Empowering Small Scale Dreams
+  </footer>
+
+  <script>
+    // Theme toggle functionality
+    document.getElementById("theme-toggle").onclick = () => {
+      document.body.classList.toggle("dark-theme");
+    };
+  </script>
+</body>
+</html>
