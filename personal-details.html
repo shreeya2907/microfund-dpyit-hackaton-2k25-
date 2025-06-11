@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Personal Details - MicroFund</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Redirect to login if not logged in -->
+  <script>
+    if (!localStorage.getItem("isLoggedIn")) {
+      window.location.href = "login.html";
+    }
+  </script>
+
+  <header>
+    <h1>Personal Details</h1>
+    <p>Fill out the form and upload your documents to complete the loan application.</p>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="success.html">Success Stories</a>
+    <a href="loan.html">Apply for Loan</a>
+    <a href="contact.html">Contact</a>
+    <button id="theme-toggle">🌓 Theme</button>
+  </nav>
+
+  <section>
+    <h3>Provide Your Personal Details:</h3>
+    <form id="personal-details-form">
+
+      <!-- Personal Info -->
+      <label for="full-name">Full Name:</label>
+      <input type="text" id="full-name" name="full-name" required placeholder="Enter your full name" />
+
+      <label for="email">Email Address:</label>
+      <input type="email" id="email" name="email" required placeholder="Enter your email address" />
+
+      <label for="phone">Primary Phone Number:</label>
+      <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number" />
+
+      <label for="alt-phone">Alternate Phone Number:</label>
+      <input type="tel" id="alt-phone" name="alt-phone" placeholder="Enter alternate phone number (optional)" />
+
+      <label for="address">Address:</label>
+      <textarea id="address" name="address" required placeholder="Enter your address"></textarea>
+
+      <!-- Business Info -->
+      <h3>Business Details:</h3>
+
+      <label for="business-name">Business Name:</label>
+      <input type="text" id="business-name" name="business-name" required placeholder="Enter your business name" />
+
+      <label for="business-type">Business Type:</label>
+      <input type="text" id="business-type" name="business-type" required placeholder="Retail, Manufacturing, etc." />
+
+      <label for="business-location">Business Location:</label>
+      <input type="text" id="business-location" name="business-location" required placeholder="Enter your business location" />
+
+      <label for="annual-turnover">Annual Turnover (INR):</label>
+      <input type="number" id="annual-turnover" name="annual-turnover" required placeholder="Enter annual turnover" />
+
+      <label for="business-registration">Business Registration Number:</label>
+      <input type="text" id="business-registration" name="business-registration" required placeholder="Registration number" />
+
+      <!-- Loan Info -->
+      <h3>Loan Details:</h3>
+
+      <label for="loan-amount">Loan Amount Requested (INR):</label>
+      <input type="number" id="loan-amount" name="loan-amount" required placeholder="Enter loan amount" />
+
+      <label for="loan-purpose">Purpose of the Loan:</label>
+      <textarea id="loan-purpose" name="loan-purpose" required placeholder="Describe loan purpose"></textarea>
+
+      <!-- Loan Progress -->
+      <h3>Loan Progress Info:</h3>
+
+      <label for="amount-paid">Amount Paid So Far (INR):</label>
+      <input type="number" id="amount-paid" name="amount-paid" required placeholder="Amount paid so far" />
+
+      <label for="tenure-years">Loan Tenure (Years):</label>
+      <input type="number" id="tenure-years" name="tenure-years" required placeholder="Loan tenure" />
+
+      <label for="years-passed">Years Passed:</label>
+      <input type="number" id="years-passed" name="years-passed" required placeholder="Years completed" />
+
+      <!-- Documents -->
+      <h3>Upload Your Documents:</h3>
+
+      <label for="aadhaar-card">Aadhaar Card:</label>
+      <input type="file" id="aadhaar-card" name="aadhaar-card" accept="image/*, .pdf" required />
+
+      <label for="udyam-card">Udyam Registration Certificate:</label>
+      <input type="file" id="udyam-card" name="udyam-card" accept="image/*, .pdf" required />
+
+      <label for="pan-card">PAN Card:</label>
+      <input type="file" id="pan-card" name="pan-card" accept="image/*, .pdf" required />
+
+      <label for="gst-registration">GST Registration Certificate:</label>
+      <input type="file" id="gst-registration" name="gst-registration" accept="image/*, .pdf" />
+
+      <label for="business-registration-doc">Business Registration Document:</label>
+      <input type="file" id="business-registration-doc" name="business-registration-doc" accept="image/*, .pdf" />
+
+      <button type="submit">Submit Application</button>
+    </form>
+  </section>
+
+  <footer>
+    &copy; 2025 MicroFund | Empowering Small Scale Dreams
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Theme toggle
+    document.getElementById("theme-toggle").onclick = () => {
+      document.body.classList.toggle("dark-theme");
+      localStorage.setItem("theme", document.body.classList.contains("dark-theme") ? "dark" : "light");
+    };
+
+    // Form Submission
+    document.getElementById("personal-details-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const loanData = {
+        fullName: document.getElementById("full-name").value,
+        email: document.getElementById("email").value,
+        phone: document.getElementById("phone").value,
+        altPhone: document.getElementById("alt-phone").value,
+        address: document.getElementById("address").value,
+        businessName: document.getElementById("business-name").value,
+        businessType: document.getElementById("business-type").value,
+        businessLocation: document.getElementById("business-location").value,
+        annualTurnover: parseFloat(document.getElementById("annual-turnover").value),
+        businessRegistration: document.getElementById("business-registration").value,
+        loanAmount: parseFloat(document.getElementById("loan-amount").value),
+        loanPurpose: document.getElementById("loan-purpose").value,
+        amountPaid: parseFloat(document.getElementById("amount-paid").value),
+        tenureYears: parseInt(document.getElementById("tenure-years").value),
+        yearsPassed: parseInt(document.getElementById("years-passed").value)
+      };
+
+      localStorage.setItem("loanData", JSON.stringify(loanData));
+      window.location.href = "thank-you.html";
+    });
+
+    // Load saved theme
+    if (localStorage.getItem("theme") === "dark") {
+      document.body.classList.add("dark-theme");
+    }
+  </script>
+</body>
+</html>
