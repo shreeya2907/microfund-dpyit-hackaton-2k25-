@@ -1,54 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title> 
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MicroFund - Empowering Small Scale Dreams</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div class="container">
-        <h1>Welcome to Microfund</h1>
-        <p>Apply for quick and easy microloans today.</p>
-      
-        <input type="text" placeholder="Enter your name">
-        <input type="number" placeholder="Enter your age">
-            
+  <!-- Script to check if user is logged in -->
+  <script>
+    if (!localStorage.getItem("isLoggedIn")) {
+      // Redirect to the login page if the user is not logged in
+      window.location.href = "login.html";
+    }
+  </script>
+  
+  <!-- Header Section -->
+  <header>
+    <h1>Welcome to MicroFund</h1>
+    <p>Your Gateway to Growth 🌱</p>
+  </header>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="success.html">Success Stories</a>
+    <a href="loan.html">Apply for Loan</a>
+    <a href="loan-status.html" id="loan-status-link">Loan Status</a> <!-- Added Loan Status Link -->
+    <button id="theme-toggle">🌓 Theme</button>
+    <button id="logout" onclick="logout()">Logout</button>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="fade-in">
+    <h2>MicroLoans for Macro Dreams 💡</h2>
+    <p>We connect small-scale industries with trusted local banks to get the funding they deserve.</p>
+    <img src="images/farmer.jpg" alt="Farmer getting support" class="hero-img"/>
+  </section>
+
+  <!-- What Makes Us Different Section -->
+  <section class="fade-in features-section">
+    <h2>What Makes Us Different?</h2>
+    <div class="feature-grid">
+      <div class="feature-box">💼 Trusted Local Bank Network</div>
+      <div class="feature-box">⚡ Faster Approvals</div>
+      <div class="feature-box">📝 Minimal Paperwork</div>
+      <div class="feature-box">🤝 Personalized Support</div>
     </div>
-    <p>Students of PCCOER Presents<p>
-    <h1>Microfund</h1>
-    <img src="/ChatGPT Image Apr 5, 2025, 12_46_56 PM.png" alt="loan" height="150"/>
-    <p><b>Small Loans,Big Impact</b></p>
-    <p>Welcome to Microfund — Empowering Dreams with Small Loans
-        At Microfund, we believe that big dreams often start with small steps. That’s why we provide quick, accessible microloans to individuals who need a little financial boost to get ahead. Whether you're starting a small business, covering urgent expenses, or investing in your future, Microfund is here to support you with fair, transparent, and hassle-free lending.</p>
-        >
+  </section>
+
+  <!-- Success Stories Section -->
+  <section class="fade-in">
+    <h2>Real Stories. Real Impact. 📈</h2>
+    <div class="story">
+      <img src="images/boutique.jpg" alt="Priya's Boutique success story" />
+      <p>Priya’s Boutique expanded to two new locations with MicroFund’s support.</p>
+    </div>
+    <div class="story">
+      <img src="images/transport.jpg" alt="Arjun's transport business success" />
+      <p>Arjun’s delivery business grew 3x after getting a quick loan.</p>
+    </div>
+  </section>
+
+  <!-- Chat Teaser Section -->
+  <section class="fade-in">
+    <h2>Need Help?</h2>
+    <p>Chat feature coming soon! 💬</p>
+  </section>
+
+  <!-- Footer Section -->
+  <footer>
+    &copy; 2025 MicroFund | Empowering Small Scale Dreams
+  </footer>
+
+  <!-- Scripts -->
+  <script>
+    // Theme Toggle functionality
+    document.getElementById("theme-toggle").onclick = () => {
+      document.body.classList.toggle("dark-theme");
+    };
+
+    // IntersectionObserver for fade-in effects
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    });
+
+    // Apply fade-in effect to elements
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Logout functionality
+    function logout() {
+      localStorage.removeItem("isLoggedIn"); // Remove login status
+      window.location.href = "login.html"; // Redirect to login page
+    }
+  </script>
+</body>
+</html>
     
-    
-    
-    <br>
-    <br>
-    <hr>
-    <b><i><u><big>Which type of loans are you looking for?</big></u></i></b>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <button><a href="homeloan.html">Home loan</a></button>
-    <br>
-    <br>
-    <br>
-    <button><a href="carloan.html">Car loan</a></button>
-    <br>
-    <br>
-    <br>
-    <button>Education Loan</button>
-    <br>
-    <br>
-    <br>
-    <button>Personal Loan</button>
-    <br>
-    <br>
-    <br>
-    <button>Business Loan</button>
-</html> 
+   
