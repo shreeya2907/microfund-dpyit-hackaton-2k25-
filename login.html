@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - MicroFund</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Login</h1>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="success.html">Success Stories</a>
+    <a href="loan.html">Apply for Loan</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <section>
+    <form id="login-form">
+      <label for="username">Username:</label>
+      <input type="text" id="username" required placeholder="Enter username" />
+      
+      <label for="password">Password:</label>
+      <input type="password" id="password" required placeholder="Enter password" />
+
+      <button type="submit">Login</button>
+    </form>
+
+    <p>Don't have an account? <a href="register.html">Create New Account</a></p> <!-- Link to register page -->
+  </section>
+
+  <footer>
+    &copy; 2025 MicroFund
+  </footer>
+
+  <script>
+    document.getElementById('login-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      
+      if (localStorage.getItem(username) === password) {
+        localStorage.setItem("isLoggedIn", true); // Store login status
+        window.location.href = "index.html"; // Redirect to home
+      } else {
+        alert("Invalid username or password");
+      }
+    });
+  </script>
+</body>
+</html>
