@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Success Stories - MicroFund</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <script>
+        // Check if the user is logged in
+        if (!localStorage.getItem("isLoggedIn")) {
+          // Redirect to the login page if the user is not logged in
+          window.location.href = "login.html";
+        }
+      </script>
+      
+  <header>
+    <h1>Success Stories</h1>
+    <p>Real People. Real Progress.</p>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="success.html">Success Stories</a>
+    <a href="loan.html">Apply for Loan</a>
+    <a href="contact.html">Contact</a>
+    <button id="theme-toggle">🌓 Theme</button>
+  </nav>
+
+  <section class="story fade-in">
+    <img src="images/farmer.jpg" alt="Farmer" />
+    <h3>Local Farmer’s Growth</h3>
+    <p>With a MicroFund loan, this farmer invested in irrigation and increased yield by 50%.</p>
+  </section>
+
+  <section class="story fade-in">
+    <img src="images/boutique.jpg" alt="Boutique" />
+    <h3>Women-Led Boutique</h3>
+    <p>Our loan helped her launch her dream boutique and employ 8 local artisans.</p>
+  </section>
+
+  <section class="story fade-in">
+    <img src="images/transport.jpg" alt="Transport" />
+    <h3>Transport Business Boom</h3>
+    <p>A small fleet owner expanded his business through our flexible microloan plan.</p>
+  </section>
+
+  <footer>
+    &copy; 2025 MicroFund
+  </footer>
+
+  <script>
+    document.getElementById("theme-toggle").onclick = () => {
+      document.body.classList.toggle("dark-theme");
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
