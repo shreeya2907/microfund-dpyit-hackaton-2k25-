@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Loan Status - MicroFund</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    .status-container {
+      max-width: 700px;
+      margin: 4em auto;
+      padding: 2em;
+      background-color: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .status-container h1 {
+      text-align: center;
+      color: #004d40;
+      margin-bottom: 1em;
+    }
+
+    .status-item {
+      margin: 1em 0;
+      font-size: 1.1em;
+    }
+
+    .label {
+      font-weight: bold;
+    }
+
+    .progress-bar {
+      height: 24px;
+      background-color: #e0f2f1;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-top: 0.5em;
+    }
+
+    .progress {
+      height: 100%;
+      background-color: #4caf50;
+      width: 0;
+      transition: width 1s ease;
+    }
+
+    .download-btn {
+      display: block;
+      margin: 2em auto 0;
+      padding: 0.8em 2em;
+      font-size: 1em;
+      border: none;
+      border-radius: 10px;
+      background-color: #004d40;
+      color: white;
+      cursor: pointer;
+    }
+
+    .dark-theme .status-container {
+      background-color: #1e1e1e;
+      color: #f5f5f5;
+    }
+
+    .dark-theme .label {
+      color: #ccc;
+    }
+
+    .dark-theme .progress-bar {
+      background-color: #333;
+    }
+
+    .dark-theme .progress {
+      background-color: #81c784;
+    }
+  </style>
+</head>
+<body>
+  <script>
+    if (!localStorage.getItem("isLoggedIn")) {
+      window.location.href = "login.html";
+    }
+  </script>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="loan-status.html">Loan Status</a>
+    <a href="loan.html">Apply for Loan</a>
+    <a href="success.html">Success Stories</a>
+    <button id="theme-toggle">🌓 Theme</button>
+  </nav>
+
+  <div class="status-container" id="status-content">
+    <h1>Loan Status</h1>
+    <div class="status-item"><span class="label">Name:</span> <span id="name"></span></div>
+    <div class="status-item"><span class="label">Total Loan:</span> ₹<span id="loan-amount"></span></div>
+    <div class="status-item"><span class="label">Amount Paid:</span> ₹<span id="amount-paid"></span></div>
+    <div class="status-item"><span class="label">Remaining:</span> ₹<span id="remaining"></span></div>
+    <div class="status-item"><span class="label">Tenure:</span> <span id="tenure"></span> years</div>
+    <div class="status-item"><span class="label">Time Passed:</span> <span id="years-passed"></span> years</div>
+    <div class="status-item"><span class="label">Time Left:</span> <span id="time-left"></span> years</div>
+    <div class="status-item">
+      <span class="label">Progress:</span>
+      <div class="progress-bar">
+        <div class="progress" id="progress-bar"></div>
+      </div>
+    </div>
+    <button class="download-btn" onclick="downloadPDF()">📄 Download Summary</button>
+  </div>
+
+  <script>
+    // THEME TOGGLE
+    document.getElementById("theme-toggle").onclick = () => {
+      document.body.classList.toggle("dark-theme");
+      localStorage.setItem("theme", document.body.classList.contains("dark-theme") ? "dark" : "light");
+    };
+
+    if (localStorage.getItem("theme") === "dark") {
+      document.body.classList.add("dark-theme");
+    }
+
+    // DYNAMIC LOAN DATA
+    const data = JSON.parse(localStorage.getItem("loanData"));
+
+    if (data) {
+      const remaining = data.loanAmount - data.amountPaid;
+      const progressPercent = Math.round((data.amountPaid / data.loanAmount) * 100);
+      const timeLeft = data.tenureYears - data.yearsPassed;
+
+      document.getElementById("name").textContent = data.fullName;
+      document.getElementById("loan-amount").textContent = data.loanAmount.toLocaleString();
+      document.getElementById("amount-paid").textContent = data.amountPaid.toLocaleString();
+      document.getElementById("remaining").textContent = remaining.toLocaleString();
+      document.getElementById("tenure").textContent = data.tenureYears;
+      document.getElementById("years-passed").textContent = data.yearsPassed;
+      document.getElementById("time-left").textContent = timeLeft;
+
+      document.getElementById("progress-bar").style.width = `${progressPercent}%`;
+    }
+
+    // PDF DOWNLOAD
+    async function downloadPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      doc.setFontSize(14);
+      doc.text("MicroFund Loan Summary", 20, 20);
+      doc.setFontSize(12);
+
+      doc.text(`Name: ${data.fullName}`, 20, 40);
+      doc.text(`Loan Amount: ₹${data.loanAmount.toLocaleString()}`, 20, 50);
+      doc.text(`Amount Paid: ₹${data.amountPaid.toLocaleString()}`, 20, 60);
+      doc.text(`Remaining Balance: ₹${(data.loanAmount - data.amountPaid).toLocaleString()}`, 20, 70);
+      doc.text(`Loan Tenure: ${data.tenureYears} years`, 20, 80);
+      doc.text(`Time Passed: ${data.yearsPassed} years`, 20, 90);
+      doc.text(`Time Remaining: ${data.tenureYears - data.yearsPassed} years`, 20, 100);
+
+      doc.save("Loan_Summary.pdf");
+    }
+  </script>
+</body>
+</html>
