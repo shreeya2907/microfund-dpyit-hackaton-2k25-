@@ -1,1 +1,105 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Eligibility Checker - MicroFund</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Loan Eligibility Checker</h1>
+    <p>Find out if you're eligible for a MicroFund loan.</p>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="success.html">Success Stories</a>
+    <a href="contact.html">Contact</a>
+    <button id="theme-toggle">🌓 Theme</button>
+  </nav>
+
+  <section class="form-section">
+    <h2>Check Your Eligibility</h2>
+    <form id="eligibility-form">
+      <label for="business-type">Business Type</label>
+      <select id="business-type" required>
+        <option value="">Select Business Type</option>
+        <option value="small">Small Business</option>
+        <option value="medium">Medium Business</option>
+        <option value="startup">Startup</option>
+      </select>
+
+      <label for="annual-revenue">Annual Revenue (in USD)</label>
+      <input type="number" id="annual-revenue" placeholder="Enter your revenue" required />
+
+      <label for="credit-score">Credit Score</label>
+      <input type="number" id="credit-score" placeholder="Enter your credit score" required />
+
+      <label for="years-in-business">Years in Business</label>
+      <input type="number" id="years-in-business" placeholder="Enter years in business" required />
+
+      <button type="submit">Check Eligibility</button>
+    </form>
+
+    <div id="eligibility-result" class="result"></div>
+
+    <button id="apply-for-loan" style="display:none;">Proceed to Apply for Loan</button>
+  </section>
+
+  <footer>
+    &copy; 2025 MicroFund
+  </footer>
+
+  <script>
+    document.getElementById("theme-toggle").onclick = () => {
+      document.body.classList.toggle("dark-theme");
+    };
+
+    document.getElementById("eligibility-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      // Get user input
+      const businessType = document.getElementById("business-type").value;
+      const annualRevenue = parseInt(document.getElementById("annual-revenue").value);
+      const creditScore = parseInt(document.getElementById("credit-score").value);
+      const yearsInBusiness = parseInt(document.getElementById("years-in-business").value);
+
+      // Check eligibility based on criteria
+      let isEligible = false;
+      let eligibilityMessage = "You are not eligible for a MicroFund loan.";
+
+      // Criteria for eligibility (example)
+      if (annualRevenue >= 10000 && creditScore >= 650 && yearsInBusiness >= 1) {
+        isEligible = true;
+        eligibilityMessage = "Congratulations! You are eligible for a MicroFund loan.";
+      }
+
+      // Display result
+      const resultDiv = document.getElementById("eligibility-result");
+      resultDiv.textContent = eligibilityMessage;
+      resultDiv.className = isEligible ? "result success" : "result failure";
+
+      // Show Apply button if eligible
+      const applyButton = document.getElementById("apply-for-loan");
+      if (isEligible) {
+        applyButton.style.display = "inline-block";
+        applyButton.addEventListener("click", function() {
+          window.location.href = "loan.html"; // Redirect to loan application page
+        });
+      } else {
+        applyButton.style.display = "none";
+      }
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
