@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us - MicroFund</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Contact Us</h1>
+    <p>We’re here to help you grow.</p>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="success.html">Success Stories</a>
+    <a href="loan.html">Apply for Loan</a>
+    <a href="contact.html">Contact</a>
+    <button id="theme-toggle">🌓 Theme</button>
+  </nav>
+
+  <section class="fade-in">
+    <h2>Send us a message</h2>
+    <form>
+      <input type="text" placeholder="Your Name" required />
+      <input type="email" placeholder="Your Email" required />
+      <textarea rows="4" placeholder="Your Message" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+  </section>
+
+  <footer>
+    &copy; 2025 MicroFund
+  </footer>
+
+  <script>
+    document.getElementById("theme-toggle").onclick = () => {
+      document.body.classList.toggle("dark-theme");
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
