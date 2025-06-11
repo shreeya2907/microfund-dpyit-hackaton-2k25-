@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Create New Account - MicroFund</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Create New Account</h1>
+  </header>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="success.html">Success Stories</a>
+    <a href="loan.html">Apply for Loan</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <section>
+    <form id="register-form">
+      <label for="new-username">Username:</label>
+      <input type="text" id="new-username" required placeholder="Enter new username" />
+
+      <label for="new-password">Password:</label>
+      <input type="password" id="new-password" required placeholder="Enter new password" />
+
+      <button type="submit">Create Account</button>
+    </form>
+
+    <p>Already have an account? <a href="login.html">Login here</a></p>
+  </section>
+
+  <footer>
+    &copy; 2025 MicroFund
+  </footer>
+
+  <script>
+    document.getElementById('register-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const newUsername = document.getElementById('new-username').value;
+      const newPassword = document.getElementById('new-password').value;
+      
+      // Save new user credentials in localStorage (just for simplicity)
+      localStorage.setItem(newUsername, newPassword); // Save username and password
+
+      alert("Account created successfully! Please log in.");
+      window.location.href = "login.html"; // Redirect to login page after successful registration
+    });
+  </script>
+</body>
+</html>
